@@ -28,7 +28,7 @@ public class PatientController {
         return patientService.findAll();
     }
 
-    @GetMapping("/patient/search/{lastName}")
+    @GetMapping("/patient/search")
     @Operation(summary = "Search patients.")
     public List<PatientDTO> searchPatients(@RequestParam String lastName) {
         log.info("Start searchPatients...");
