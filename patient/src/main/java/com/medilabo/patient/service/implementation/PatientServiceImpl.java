@@ -37,9 +37,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDTO> findByLastNameIgnoreCase(String lastName){
 
-        List<Patient> patients = patientRepository.findByLastNameStartsWithIgnoreCase(lastName);
-
-        return patients.stream()
+        return patientRepository.findByLastNameStartsWithIgnoreCase(lastName)
+                .stream()
                 .map(patientMapper::patientToPatientDTO)
                 .toList();
     }
