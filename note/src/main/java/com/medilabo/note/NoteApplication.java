@@ -10,7 +10,7 @@ public class NoteApplication {
 		SpringApplication.run(NoteApplication.class, args);
 	}
 
-//            noteRepository.saveAll(List.of(
+//		            noteRepository.saveAll(List.of(
 //                    new Note(null, "1", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé."),
 //                    new Note(null, "2", "Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement."),
 //                    new Note(null, "2", "Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale."),

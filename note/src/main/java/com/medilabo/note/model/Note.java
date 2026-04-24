@@ -16,7 +16,7 @@ public class Note {
     @Id
     private String id;
 
-    @Field(name = "patID")
+    @Field(name = "patId")
     private String patientId;
     private String note;
 }

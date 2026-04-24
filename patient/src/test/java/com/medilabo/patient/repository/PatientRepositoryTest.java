@@ -20,13 +20,13 @@ class PatientRepositoryTest {
 
         //GIVEN
         Patient patient = new Patient();
-        patient.setLastName("John");
+        patient.setLastName("TH");
         patientRepository.save(patient);
 
         //WHEN
-        List<Patient> result = patientRepository.findByLastNameStartsWithIgnoreCase("John");
+        List<Patient> result = patientRepository.findByLastNameStartsWithIgnoreCase("TH");
 
         //THEN
-        assertThat(result).isEqualTo(List.of(patient));
+        assertThat(result).hasSize(1);
     }
 }

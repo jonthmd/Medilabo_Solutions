@@ -6,7 +6,6 @@ import com.medilabo.note.service.NoteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +16,9 @@ import java.util.List;
 public class NoteController {
 
     private final NoteService noteService;
-    private final MongoTemplate mongoTemplate;
 
-    public NoteController(NoteService noteService, MongoTemplate mongoTemplate) {
+    public NoteController(NoteService noteService) {
         this.noteService = noteService;
-        this.mongoTemplate = mongoTemplate;
-    }
-
-    @GetMapping("/test-db")
-    public String testDb() {
-        return mongoTemplate.getDb().getName();
     }
 
     @GetMapping("/note/all")
@@ -38,19 +30,19 @@ public class NoteController {
 
     @GetMapping("/note/patient/{patientId}")
     @Operation(summary = "Get all notes for a patient.")
-    public List<NoteDTO> findByPatientId(@PathVariable Long patientId) {
+    public List<NoteDTO> findNoteByPatientId(@PathVariable String patientId) {
         log.info("Start findByPatientId...");
         return noteService.findByPatientId(patientId);
     }
 
     @PostMapping("/note/add")
     @Operation(summary = "Add a note.")
-    public SaveNoteDTO save(SaveNoteDTO saveNoteDTO) {
+    public SaveNoteDTO saveNote(SaveNoteDTO saveNoteDTO) {
         log.info("Start save note...");
         return noteService.createNote(saveNoteDTO);
     }
 
-    @DeleteMapping("/note/{id}")
+    @DeleteMapping("/note/delete/{id}")
     @Operation(summary = "Delete a note.")
     public void deleteNote(@PathVariable String id) {
         log.info("Start delete note...");

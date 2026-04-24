@@ -8,7 +8,7 @@ import java.util.List;
 public interface NoteService {
 
     List<NoteDTO> findAll();
-    List<NoteDTO> findByPatientId(Long patientId);
+    List<NoteDTO> findByPatientId(String patientId);
     SaveNoteDTO createNote(SaveNoteDTO saveNoteDTO);
     void deleteNote(String id);
 }
