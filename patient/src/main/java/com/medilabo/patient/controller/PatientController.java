@@ -12,6 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/patient")
 @Tag(name = "Patient", description = "Patients of Medilabo Solutions.")
 public class PatientController {
 
@@ -21,42 +22,42 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/patient/all")
+    @GetMapping("/all")
     @Operation(summary = "Get all patients.")
     public List<PatientDTO> getAllPatients() {
         log.info("Start getAllPatients...");
         return patientService.findAll();
     }
 
-    @GetMapping("/patient/search")
+    @GetMapping("/search")
     @Operation(summary = "Search patients.")
     public List<PatientDTO> searchPatients(@RequestParam String lastName) {
         log.info("Start searchPatients...");
         return patientService.findByLastNameIgnoreCase(lastName);
     }
 
-    @PostMapping("/patient/add")
+    @PostMapping("/add")
     @Operation(summary = "Add a patient.")
     public SavePatientDTO addPatient(@RequestBody SavePatientDTO savePatientDTO) {
         log.info("Start addPatient...");
         return patientService.addPatient(savePatientDTO);
     }
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Get a patient by ID.")
     public PatientDTO getPatientById(@PathVariable Long id) {
         log.info("Start getPatientById...");
         return patientService.getPatientById(id);
     }
 
-    @PutMapping("/patient/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Edit a patient.")
     public SavePatientDTO updatePatient(@PathVariable Long id, @RequestBody SavePatientDTO savePatientDTO) {
         log.info("Start updatePatient...");
         return patientService.updatePatient(id, savePatientDTO);
     }
 
-    @DeleteMapping("/patient/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete a patient.")
     public void deletePatient(@PathVariable Long id) {
         log.info("Start deletePatient...");
