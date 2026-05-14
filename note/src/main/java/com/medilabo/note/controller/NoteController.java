@@ -12,6 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/note")
 @Tag(name = "Note", description = "Patients Notes of Medilabo Solutions.")
 public class NoteController {
 
@@ -21,28 +22,28 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @GetMapping("/note/all")
+    @GetMapping("/all")
     @Operation(summary = "Get all notes.")
     public List<NoteDTO> getAllNotes() {
         log.info("Start getAllNotes...");
         return noteService.findAll();
     }
 
-    @GetMapping("/note/patient/{patientId}")
+    @GetMapping("/patient/{patientId}")
     @Operation(summary = "Get all notes for a patient.")
-    public List<NoteDTO> findNoteByPatientId(@PathVariable String patientId) {
+    public List<NoteDTO> findNoteByPatientId(@PathVariable Long patientId) {
         log.info("Start findByPatientId...");
         return noteService.findByPatientId(patientId);
     }
 
-    @PostMapping("/note/add")
+    @PostMapping("/add")
     @Operation(summary = "Add a note.")
-    public SaveNoteDTO saveNote(SaveNoteDTO saveNoteDTO) {
+    public SaveNoteDTO saveNote(@RequestBody SaveNoteDTO saveNoteDTO) {
         log.info("Start save note...");
         return noteService.createNote(saveNoteDTO);
     }
 
-    @DeleteMapping("/note/delete/{id}")
+    @PostMapping("/delete/{id}")
     @Operation(summary = "Delete a note.")
     public void deleteNote(@PathVariable String id) {
         log.info("Start delete note...");

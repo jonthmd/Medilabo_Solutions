@@ -8,6 +8,7 @@ import com.medilabo.patient.mapper.PatientMapper;
 import com.medilabo.patient.model.Patient;
 import com.medilabo.patient.repository.PatientRepository;
 import com.medilabo.patient.service.PatientService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDTO> findByLastNameIgnoreCase(String lastName){
 
-        return patientRepository.findByLastNameStartsWithIgnoreCase(lastName)
+        return patientRepository.findByLastNameContainingIgnoreCase(lastName)
                 .stream()
                 .map(patientMapper::patientToPatientDTO)
                 .toList();
@@ -79,6 +80,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional
     public void deletePatient(Long id) {
 
         Patient patient = patientRepository.findById(id)

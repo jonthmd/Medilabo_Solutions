@@ -68,14 +68,14 @@ class PatientServiceImplTest {
         PatientDTO patientDTO = new PatientDTO();
         List<PatientDTO> patientDTOList = List.of(patientDTO);
 
-        when(patientRepository.findByLastNameStartsWithIgnoreCase("TH")).thenReturn(patientList);
+        when(patientRepository.findByLastNameContainingIgnoreCase("TH")).thenReturn(patientList);
         when(patientMapper.patientToPatientDTO(patient)).thenReturn(patientDTO);
 
         //WHEN
         List<PatientDTO> result = classUnderTest.findByLastNameIgnoreCase("TH");
 
         //THEN
-        verify(patientRepository).findByLastNameStartsWithIgnoreCase("TH");
+        verify(patientRepository).findByLastNameContainingIgnoreCase("TH");
         verify(patientMapper).patientToPatientDTO(patient);
         assertThat(result).isEqualTo(patientDTOList);
     }

@@ -50,14 +50,14 @@ public class PatientController {
         return patientService.getPatientById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Edit a patient.")
     public SavePatientDTO updatePatient(@PathVariable Long id, @RequestBody SavePatientDTO savePatientDTO) {
         log.info("Start updatePatient...");
         return patientService.updatePatient(id, savePatientDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Delete a patient.")
     public void deletePatient(@PathVariable Long id) {
         log.info("Start deletePatient...");

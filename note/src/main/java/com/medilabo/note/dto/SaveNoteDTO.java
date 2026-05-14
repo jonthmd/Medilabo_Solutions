@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SaveNoteDTO {
 
-    private String patientId;
+    private Long patientId;
     private String note;
 }

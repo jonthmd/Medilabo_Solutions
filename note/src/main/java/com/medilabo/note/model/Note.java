@@ -17,6 +17,6 @@ public class Note {
     private String id;
 
     @Field(name = "patId")
-    private String patientId;
+    private Long patientId;
     private String note;
 }

@@ -67,14 +67,14 @@ class NoteServiceImplTest {
         NoteDTO noteDTO = new NoteDTO();
         List<NoteDTO> noteDTOList = List.of(noteDTO);
 
-        when(noteRepository.findByPatientId("1")).thenReturn(noteList);
+        when(noteRepository.findByPatientId(1L)).thenReturn(noteList);
         when(noteMapper.noteToNoteDTO(note)).thenReturn(noteDTO);
 
         //WHEN
-        List<NoteDTO> result = classUnderTest.findByPatientId("1");
+        List<NoteDTO> result = classUnderTest.findByPatientId(1L);
 
         //THEN
-        verify(noteRepository).findByPatientId("1");
+        verify(noteRepository).findByPatientId(1L);
         verify(noteMapper).noteToNoteDTO(note);
         assertThat(result).isEqualTo(noteDTOList);
     }

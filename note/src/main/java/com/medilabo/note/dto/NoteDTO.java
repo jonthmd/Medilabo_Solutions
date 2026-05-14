@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class NoteDTO {
 
     private String id;
-    private String patientId;
+    private Long patientId;
     private String note;
 }

@@ -16,7 +16,7 @@ class PatientRepositoryTest {
     private PatientRepository patientRepository;
 
     @Test
-    void findByLastNameStartsWithIgnoreCase() {
+    void findByLastNameContainingIgnoreCase() {
 
         //GIVEN
         Patient patient = new Patient();
@@ -24,7 +24,7 @@ class PatientRepositoryTest {
         patientRepository.save(patient);
 
         //WHEN
-        List<Patient> result = patientRepository.findByLastNameStartsWithIgnoreCase("TH");
+        List<Patient> result = patientRepository.findByLastNameContainingIgnoreCase("TH");
 
         //THEN
         assertThat(result).hasSize(1);

@@ -8,5 +8,4 @@ import org.mapstruct.Mapper;
 public interface NoteMapper {
 
     NoteDTO noteToNoteDTO(Note note);
-    Note noteDTOToNote(NoteDTO noteDTO);
 }

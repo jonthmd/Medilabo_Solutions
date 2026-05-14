@@ -35,7 +35,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<NoteDTO> findByPatientId(String patientId) {
+    public List<NoteDTO> findByPatientId(Long patientId) {
 
         return noteRepository.findByPatientId(patientId)
                 .stream()

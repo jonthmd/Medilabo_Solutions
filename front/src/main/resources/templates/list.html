@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Patients</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="col-6 text-right">
+    <a class="col-6 text-right">
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </a>
+</div>
+<div class="container">
+    <div class="row"><h2>Patients list</h2></div>
+
+    <div class="row mb-3">
+        <form th:action="@{/search}" method="get" class="d-flex gap-2">
+            <label>
+                <input type="text" name="lastName" class="form-control" placeholder="Search by last name..."/>
+            </label>
+            <button type="submit" class="btn btn-secondary">Search</button>
+            <a href="/list" class="btn btn-outline-secondary">Reset</a>
+        </form>
+    </div>
+
+    <div class="row mb-3">
+        <div>
+            <a href="/patient/add" class="btn btn-primary btn-sm">Add patient</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.firstName}"></td>
+                <td th:text="${patient.lastName}"></td>
+                <td class="text-center">
+                    <a th:href="@{/patient/{id}(id=${patient.id})}" class="btn btn-info btn-sm">Details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

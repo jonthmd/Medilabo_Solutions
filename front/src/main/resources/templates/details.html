@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Patient details</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="row mb-3">
+        <div>
+            <a href="/list" class="btn btn-secondary btn-sm">Go back</a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <h2>Patient</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>First name</th>
+                <td th:text="${patient.firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last name</th>
+                <td th:text="${patient.lastName}"></td>
+            </tr>
+            <tr>
+                <th>Birth date</th>
+                <td th:text="${patient.birthDate}"></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td th:text="${patient.gender}"></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td th:text="${patient.address}"></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td th:text="${patient.phone}"></td>
+            </tr>
+        </table>
+
+        <div class="d-flex gap-2">
+            <a th:href="@{/patient/update/{id}(id=${patient.id})}" class="btn btn-warning btn-sm">Edit</a>
+
+            <form th:action="@{/patient/delete/{id}(id=${patient.id})}" method="post">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <h3>Notes</h3>
+        <table class="table table-bordered" th:if="${not #lists.isEmpty(notes)}">
+            <thead>
+            <tr>
+                <th>Note</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note : ${notes}">
+                <td th:text="${note.note}"></td>
+                <td class="text-center">
+                    <form th:action="@{/note/delete/{id}(id=${note.id})}" method="post">
+                        <input type="hidden" name="patientId" th:value="${patient.id}"/>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${#lists.isEmpty(notes)}" class="text-muted">No notes yet.</p>
+    </div>
+
+    <div class="row">
+        <h4>Add note</h4>
+        <form th:action="@{/note/add}" method="post" th:object="${saveNoteDTO}">
+            <input type="hidden" name="patientId" th:value="${patient.id}"/>
+            <div class="mb-3">
+                <label>
+                    <textarea th:field="*{note}" class="form-control" rows="3" placeholder="Your note..."></textarea>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
