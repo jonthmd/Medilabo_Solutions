@@ -8,7 +8,6 @@ import com.medilabo.patient.mapper.PatientMapper;
 import com.medilabo.patient.model.Patient;
 import com.medilabo.patient.repository.PatientRepository;
 import com.medilabo.patient.service.PatientService;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,7 +79,6 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    @Transactional
     public void deletePatient(Long id) {
 
         Patient patient = patientRepository.findById(id)

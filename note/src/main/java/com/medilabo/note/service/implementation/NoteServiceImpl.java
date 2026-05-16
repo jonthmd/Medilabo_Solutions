@@ -60,4 +60,10 @@ public class NoteServiceImpl implements NoteService {
 
         noteRepository.delete(note);
     }
+
+    @Override
+    public void deleteNoteByPatientId(Long patientId) {
+
+        noteRepository.deleteByPatientId(patientId);
+    }
 }

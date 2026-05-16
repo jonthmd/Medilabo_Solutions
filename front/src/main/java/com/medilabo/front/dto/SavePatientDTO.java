@@ -1,5 +1,6 @@
 package com.medilabo.front.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,16 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SavePatientDTO {
 
-    //    @NotBlank(message = "First name is mandatory.")
+    @NotBlank(message = "First name is mandatory.")
     private String firstName;
 
-    //    @NotBlank(message = "Last name is mandatory.")
+    @NotBlank(message = "Last name is mandatory.")
     private String lastName;
 
-    //    @NotBlank(message = "Birthdate is mandatory.")
+    @NotBlank(message = "Birthdate is mandatory.")
     private String birthDate;
 
-    //    @NotBlank(message = "Gender is mandatory.")
+    @NotBlank(message = "Gender is mandatory.")
     private String gender;
 
     private String address;

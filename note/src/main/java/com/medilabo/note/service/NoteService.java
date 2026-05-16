@@ -11,4 +11,5 @@ public interface NoteService {
     List<NoteDTO> findByPatientId(Long patientId);
     SaveNoteDTO createNote(SaveNoteDTO saveNoteDTO);
     void deleteNote(String id);
+    void deleteNoteByPatientId(Long patientId);
 }

@@ -4,9 +4,11 @@ import com.medilabo.front.dto.SaveNoteDTO;
 import com.medilabo.front.dto.SavePatientDTO;
 import com.medilabo.front.feign.NoteFeign;
 import com.medilabo.front.feign.PatientFeign;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -37,7 +39,7 @@ public class FrontController {
     @GetMapping("/patient/{id}")
     public String getPatient(@PathVariable Long id, Model model) {
         model.addAttribute("patient", patientFeign.getPatientById(id));
-            model.addAttribute("notes", noteFeign.findNoteByPatientId(id));
+        model.addAttribute("notes", noteFeign.findNoteByPatientId(id));
         model.addAttribute("saveNoteDTO", new SaveNoteDTO());
         log.info("get patient {}", id);
         return "details";
@@ -50,7 +52,10 @@ public class FrontController {
     }
 
     @PostMapping("/patient/add")
-    public String addPatient(@ModelAttribute SavePatientDTO savePatientDTO) {
+    public String addPatient(@Valid @ModelAttribute SavePatientDTO savePatientDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "add";
+        }
         patientFeign.addPatient(savePatientDTO);
         log.info("add patient {}", savePatientDTO);
         return "redirect:/list";
@@ -59,11 +64,16 @@ public class FrontController {
     @GetMapping("/patient/update/{id}")
     public String showEditPatientForm(@PathVariable Long id, Model model) {
         model.addAttribute("patient", patientFeign.getPatientById(id));
+        model.addAttribute("id", id);
         return "update";
     }
 
     @PostMapping("/patient/update/{id}")
-    public String updatePatient(@ModelAttribute SavePatientDTO savePatientDTO, @PathVariable Long id) {
+    public String updatePatient(@Valid @ModelAttribute("patient") SavePatientDTO savePatientDTO, BindingResult result, @PathVariable Long id, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("id", id);
+            return "update";
+        }
         patientFeign.updatePatient(id, savePatientDTO);
         log.info("update patient {}", savePatientDTO);
         return "redirect:/patient/" + id;
@@ -71,6 +81,7 @@ public class FrontController {
 
     @PostMapping("patient/delete/{id}")
     public String deletePatient(@PathVariable Long id) {
+        noteFeign.deleteNoteByPatientId(id);
         patientFeign.deletePatient(id);
         log.info("delete patient {}", id);
         return "redirect:/list";
@@ -80,7 +91,6 @@ public class FrontController {
     public String addNote(@ModelAttribute SaveNoteDTO saveNoteDTO) {
         noteFeign.saveNote(saveNoteDTO);
         log.info("add note {}", saveNoteDTO);
-//        System.out.println(saveNoteDTO.getPatientId());
         return "redirect:/patient/" + saveNoteDTO.getPatientId();
     }
 

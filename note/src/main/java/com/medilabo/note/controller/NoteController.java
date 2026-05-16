@@ -43,10 +43,17 @@ public class NoteController {
         return noteService.createNote(saveNoteDTO);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Delete a note.")
     public void deleteNote(@PathVariable String id) {
         log.info("Start delete note...");
         noteService.deleteNote(id);
+    }
+
+    @DeleteMapping("/delete/notes/patient/{patientId}")
+    @Operation(summary = "Delete notes by patientId. ")
+    public void deleteNoteByPatientId(@PathVariable Long patientId) {
+        log.info("Start deleteNoteByPatientId...");
+        noteService.deleteNoteByPatientId(patientId);
     }
 }

@@ -2,9 +2,9 @@ package com.medilabo.front.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,10 +18,16 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
-        return http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/user").hasRole("USER");
-            auth.anyRequest().authenticated();
-        }).formLogin(Customizer.withDefaults()).build();
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/css/**").permitAll(); // ← Bootstrap accessible sans login
+                    auth.anyRequest().authenticated();
+                })
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/list", true)
+                )
+                .build();
     }
 
     @Bean

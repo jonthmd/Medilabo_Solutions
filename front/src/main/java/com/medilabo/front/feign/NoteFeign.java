@@ -3,10 +3,7 @@ package com.medilabo.front.feign;
 import com.medilabo.front.dto.NoteDTO;
 import com.medilabo.front.dto.SaveNoteDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +18,7 @@ public interface NoteFeign {
 
     @DeleteMapping("/api/note/delete/{id}")
     void deleteNote(@PathVariable String id);
+
+    @DeleteMapping("/api/note/delete/notes/patient/{patientId}")
+    void deleteNoteByPatientId(@PathVariable Long patientId);
 }
