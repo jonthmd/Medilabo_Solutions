@@ -42,4 +42,19 @@ class NoteRepositoryTest {
         .extracting(Note::getPatientId)
                 .containsExactly(1L);
     }
+
+    @Test
+    void deleteByPatientId() {
+
+        //GIVEN
+        Note note = new Note();
+        note.setPatientId(1L);
+        noteRepository.save(note);
+
+        //WHEN
+        noteRepository.deleteByPatientId(1L);
+
+        //THEN
+        assertThat(noteRepository.findByPatientId(1L)).isEmpty();
+    }
 }

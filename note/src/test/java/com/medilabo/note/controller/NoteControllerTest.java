@@ -50,4 +50,11 @@ class NoteControllerTest {
         mockMvc.perform(delete("/note/delete/{id}", "1"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void deleteNoteByPatientId() throws Exception {
+
+        mockMvc.perform(delete("/note/delete/notes/patient/{patientId}", "1"))
+                .andExpect(status().isOk());
+    }
 }

@@ -124,4 +124,18 @@ class NoteServiceImplTest {
         //WHEN+THEN
         assertThrows(RuntimeException.class, () -> classUnderTest.deleteNote("1"));
     }
+
+    @Test
+    void deleteNoteByPatientId() {
+
+        //GIVEN
+        Note note = new Note();
+        note.setPatientId(1L);
+
+        //WHEN
+        classUnderTest.deleteNoteByPatientId(1L);
+
+        //THEN
+        verify(noteRepository).deleteByPatientId(1L);
+    }
 }
