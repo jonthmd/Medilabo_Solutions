@@ -1,4 +1,4 @@
-package com.medilabo.patient.dto;
+package com.medilabo.risk.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
