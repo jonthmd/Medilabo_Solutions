@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,7 +25,7 @@ public class Patient {
     private String lastName;
 
     @Column(name = "birth_date")
-    private LocalDate birthDate;
+    private String birthDate;
     private String gender;
     private String address;
     private String phone;

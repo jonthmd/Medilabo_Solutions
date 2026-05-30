@@ -21,7 +21,8 @@ public class GatewayConfig {
         try {
             String path = request.path()
                     .replaceFirst("/api/patient", "/patient")
-                    .replaceFirst("/api/note", "/note");
+                    .replaceFirst("/api/note", "/note")
+                    .replaceFirst("/api/risk", "/risk");
 
             String query = request.uri().getQuery();
             String fullPath = query != null ? path + "?" + query : path;
@@ -52,6 +53,7 @@ public class GatewayConfig {
     public RouterFunction<ServerResponse> routes() {
         String patientBase = "http://localhost:8081";
         String noteBase = "http://localhost:8082";
+        String riskBase = "http://localhost:8083";
 
         return RouterFunctions.route()
                 .GET("/api/patient/**", req -> proxy(req, patientBase))
@@ -61,6 +63,7 @@ public class GatewayConfig {
                 .GET("/api/note/**", req -> proxy(req, noteBase))
                 .POST("/api/note/**", req -> proxy(req, noteBase))
                 .DELETE("/api/note/**", req -> proxy(req, noteBase))
+                .POST("/api/risk/**", req -> proxy(req, riskBase))
                 .build();
     }
 

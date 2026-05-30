@@ -35,19 +35,16 @@ public class RiskServiceImpl implements RiskService {
         int age = calculateAge.calculate(String.valueOf(patientDTO.getBirthDate()));
         int count = countTriggers.count(noteDTOList);
         boolean m = patientDTO.getGender().equalsIgnoreCase("M");
-        Risks risks = null;
+        Risks risks;
 
-        if(count==0){
-            risks = Risks.NONE;
-        }
-        if(age>30 && count>=2 && count<=5){
+        if (age > 30 && count >= 2 && count <= 5) {
             risks = Risks.BORDERLINE;
-        }
-        if((age<30 && m && count==3) || (age<30 && !m && count==4) || (age>30 && count>=6 && count<=7)){
+        } else if ((age < 30 && m && count == 3) || (age < 30 && !m && count == 4) || (age > 30 && count >= 6 && count <= 7)) {
             risks = Risks.DANGER;
-        }
-        if((age<30 && m && count>=5) || (age<30 && !m && count>=7) || (age>30 && count>=8)){
+        } else if ((age < 30 && m && count >= 5) || (age < 30 && !m && count >= 7) || (age > 30 && count >= 8)) {
             risks = Risks.ONSET;
+        } else {
+            risks = Risks.NONE;
         }
 
         log.info("Age : {}", age);

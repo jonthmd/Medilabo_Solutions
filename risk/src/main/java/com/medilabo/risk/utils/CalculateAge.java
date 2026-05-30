@@ -11,8 +11,8 @@ import java.time.Period;
 @Component
 public class CalculateAge {
 
-    public int calculate(String birthdate){
-        LocalDate localDate = LocalDate.parse(birthdate);
+    public int calculate(String birthDate){
+        LocalDate localDate = LocalDate.parse(birthDate);
         return Period.between(localDate, LocalDate.now()).getYears();
     }
 }

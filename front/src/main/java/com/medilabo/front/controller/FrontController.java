@@ -1,9 +1,11 @@
 package com.medilabo.front.controller;
 
+import com.medilabo.front.dto.DetailsDTO;
 import com.medilabo.front.dto.SaveNoteDTO;
 import com.medilabo.front.dto.SavePatientDTO;
 import com.medilabo.front.feign.NoteFeign;
 import com.medilabo.front.feign.PatientFeign;
+import com.medilabo.front.feign.RiskFeign;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,12 @@ public class FrontController {
 
     private final PatientFeign patientFeign;
     private final NoteFeign noteFeign;
+    private final RiskFeign riskFeign;
 
-    public FrontController(PatientFeign patientFeign, NoteFeign noteFeign) {
+    public FrontController(PatientFeign patientFeign, NoteFeign noteFeign, RiskFeign riskFeign) {
         this.patientFeign = patientFeign;
         this.noteFeign = noteFeign;
+        this.riskFeign = riskFeign;
     }
 
     @GetMapping("/list")
@@ -41,7 +45,10 @@ public class FrontController {
         model.addAttribute("patient", patientFeign.getPatientById(id));
         model.addAttribute("notes", noteFeign.findNoteByPatientId(id));
         model.addAttribute("saveNoteDTO", new SaveNoteDTO());
+        DetailsDTO detailsDTO = new DetailsDTO(patientFeign.getPatientById(id), noteFeign.findNoteByPatientId(id));
+        model.addAttribute("risk", riskFeign.getRisk(detailsDTO));
         log.info("get patient {}", id);
+        log.info("risk : {}", riskFeign.getRisk(detailsDTO));
         return "details";
     }
 
@@ -71,6 +78,13 @@ public class FrontController {
     @PostMapping("/patient/update/{id}")
     public String updatePatient(@Valid @ModelAttribute("patient") SavePatientDTO savePatientDTO, BindingResult result, @PathVariable Long id, Model model) {
         if (result.hasErrors()) {
+            result.getAllErrors()
+                    .forEach(error -> log.error(error.toString()));
+            SavePatientDTO existingPatient = patientFeign.updatePatient(id, savePatientDTO);
+
+            if (savePatientDTO.getBirthDate() == null) {
+                savePatientDTO.setBirthDate(existingPatient.getBirthDate());
+            }
             model.addAttribute("id", id);
             return "update";
         }

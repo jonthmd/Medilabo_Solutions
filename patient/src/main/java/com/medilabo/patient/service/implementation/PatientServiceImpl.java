@@ -64,16 +64,20 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public SavePatientDTO updatePatient(Long id, SavePatientDTO savePatientDTO) {
 
-        Patient patient = patientRepository.findById(id)
+        Patient existingPatient = patientRepository.findById(id)
                 .orElseThrow(() -> new PatientNotFoundException("Patient not found with id: " + id));
 
-        patient.setFirstName(savePatientDTO.getFirstName());
-        patient.setLastName(savePatientDTO.getLastName());
-        patient.setBirthDate(savePatientDTO.getBirthDate());
-        patient.setGender(savePatientDTO.getGender());
-        patient.setAddress(savePatientDTO.getAddress());
-        patient.setPhone(savePatientDTO.getPhone());
-        Patient updatedPatient = patientRepository.save(patient);
+        existingPatient.setFirstName(savePatientDTO.getFirstName());
+        existingPatient.setLastName(savePatientDTO.getLastName());
+
+        if(savePatientDTO.getBirthDate() != null) {
+            existingPatient.setBirthDate(savePatientDTO.getBirthDate());
+        }
+
+        existingPatient.setGender(savePatientDTO.getGender());
+        existingPatient.setAddress(savePatientDTO.getAddress());
+        existingPatient.setPhone(savePatientDTO.getPhone());
+        Patient updatedPatient = patientRepository.save(existingPatient);
 
         return savePatientMapper.patientToSavePatientDTO(updatedPatient);
     }

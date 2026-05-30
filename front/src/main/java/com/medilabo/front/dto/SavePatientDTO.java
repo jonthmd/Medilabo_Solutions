@@ -1,11 +1,10 @@
 package com.medilabo.front.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,8 +17,9 @@ public class SavePatientDTO {
     @NotBlank(message = "Last name is mandatory.")
     private String lastName;
 
-    @NotBlank(message = "Birthdate is mandatory.")
-    private LocalDate birthDate;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull(message = "Birth date is mandatory.")
+    private String birthDate;
 
     @NotBlank(message = "Gender is mandatory.")
     private String gender;
