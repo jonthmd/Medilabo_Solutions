@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc757"
+  },
+  "patId": {
+    "$numberLong": "1"
+  },
+  "note": "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc758"
+  },
+  "patId": {
+    "$numberLong": "2"
+  },
+  "note": "Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc759"
+  },
+  "patId": {
+    "$numberLong": "2"
+  },
+  "note": "Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75a"
+  },
+  "patId": {
+    "$numberLong": "3"
+  },
+  "note": "Le patient déclare qu'il fume depuis peu.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75b"
+  },
+  "patId": {
+    "$numberLong": "3"
+  },
+  "note": "Le patient déclare qu'il est fumeur et qu'il a cessé de fumer l'année dernière Il se plaint également de crises d’apnée respiratoire anormales Tests de laboratoire indiquant un taux de cholestérol LDL élevé.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75c"
+  },
+  "patId": {
+    "$numberLong": "4"
+  },
+  "note": "Le patient déclare qu'il lui est devenu difficile de monter les escaliers Il se plaint également d’être essoufflé Tests de laboratoire indiquant que les anticorps sont élevés Réaction aux médicaments.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75d"
+  },
+  "patId": {
+    "$numberLong": "4"
+  },
+  "note": "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75e"
+  },
+  "patId": {
+    "$numberLong": "4"
+  },
+  "note": "Le patient déclare avoir commencé à fumer depuis peu Hémoglobine A1C supérieure au niveau recommandé.",
+  "_class": "com.medilabo.note.model.Note"
+},
+{
+  "_id": {
+    "$oid": "6a1a2d70d72ee1edf5bcc75f"
+  },
+  "patId": {
+    "$numberLong": "4"
+  },
+  "note": "Taille, Poids, Cholestérol, Vertige et Réaction.",
+  "_class": "com.medilabo.note.model.Note"
+}]

@@ -1,5 +1,6 @@
 package com.medilabo.gateway;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.RequestEntity;
@@ -14,6 +15,15 @@ import java.net.URI;
 
 @Configuration
 public class GatewayConfig {
+
+    @Value("${patient.base-url}")
+    private String patientBase;
+
+    @Value("${note.base-url}")
+    private String noteBase;
+
+    @Value("${risk.base-url}")
+    private String riskBase;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -51,9 +61,6 @@ public class GatewayConfig {
 
     @Bean
     public RouterFunction<ServerResponse> routes() {
-        String patientBase = "http://localhost:8081";
-        String noteBase = "http://localhost:8082";
-        String riskBase = "http://localhost:8083";
 
         return RouterFunctions.route()
                 .GET("/api/patient/**", req -> proxy(req, patientBase))

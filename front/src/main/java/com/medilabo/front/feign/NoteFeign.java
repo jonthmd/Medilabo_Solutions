@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "note", url = "http://localhost:8080")
+@FeignClient(name = "note", url = "${gateway.base-url}")
 public interface NoteFeign {
 
     @GetMapping("/api/note/patient/{patientId}")

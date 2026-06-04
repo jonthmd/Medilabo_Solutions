@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "risk", url = "http://localhost:8080")
+@FeignClient(name = "risk", url = "${gateway.base-url}")
 public interface RiskFeign {
 
     @PostMapping("/api/risk/level")
