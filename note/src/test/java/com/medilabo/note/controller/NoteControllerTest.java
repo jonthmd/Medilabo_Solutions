@@ -2,6 +2,7 @@ package com.medilabo.note.controller;
 
 import com.medilabo.note.repository.NoteRepository;
 import com.medilabo.note.service.NoteService;
+import org.junit.jupiter.api.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -40,7 +41,15 @@ class NoteControllerTest {
     @Test
     void saveNote() throws Exception {
 
-        mockMvc.perform(post("/note/add"))
+        String json = """
+                                {
+                  "note": "note"
+                }
+                """;
+
+        mockMvc.perform(post("/note/add")
+                        .contentType(String.valueOf(MediaType.APPLICATION_JSON))
+                        .content(json))
                 .andExpect(status().isOk());
     }
 

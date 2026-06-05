@@ -1,5 +1,6 @@
 package com.medilabo.patient.controller;
 
+import com.medilabo.patient.repository.PatientRepository;
 import com.medilabo.patient.service.PatientService;
 import org.junit.jupiter.api.MediaType;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ class PatientControllerTest {
 
     @MockitoBean
     private PatientService patientService;
+
+    @MockitoBean
+    private PatientRepository patientRepository;
 
     @Test
     void getAllPatients() throws Exception {
@@ -71,7 +75,7 @@ class PatientControllerTest {
                 }
                 """;
 
-        mockMvc.perform(put("/patient/{id}", "1")
+        mockMvc.perform(put("/patient/update/{id}", "1")
                         .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                         .content(json))
                 .andExpect(status().isOk());
@@ -80,7 +84,7 @@ class PatientControllerTest {
     @Test
     void deletePatient() throws Exception {
 
-        mockMvc.perform(delete("/patient/{id}", "1"))
+        mockMvc.perform(delete("/patient/delete/{id}", "1"))
                 .andExpect(status().isOk());
     }
 }
