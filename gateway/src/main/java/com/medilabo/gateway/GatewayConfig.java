@@ -13,6 +13,9 @@ import org.springframework.web.servlet.function.ServerResponse;
 
 import java.net.URI;
 
+/**
+ * Configures the routing of requests from the gateway to the microservices.
+ */
 @Configuration
 public class GatewayConfig {
 
@@ -59,6 +62,11 @@ public class GatewayConfig {
         }
     }
 
+    /**
+     * Creates the gateway routes.
+     *
+     * @return The route configuration.
+     */
     @Bean
     public RouterFunction<ServerResponse> routes() {
 

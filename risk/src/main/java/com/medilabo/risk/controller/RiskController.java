@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller with endpoint operation related to the risk.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/risk")
@@ -20,6 +23,11 @@ public class RiskController {
         this.riskService = riskService;
     }
 
+    /**
+     * Retrieves the risk of a patient by counting triggers.
+     * @param detailsDTO Patient and notes details.
+     * @return RiskDTO, a risk evaluation.
+     */
     @PostMapping("/level")
     @Operation(summary = "Get risk of the patient.")
     public RiskDTO getRisk(@RequestBody DetailsDTO detailsDTO) {

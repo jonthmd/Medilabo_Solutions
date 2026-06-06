@@ -5,6 +5,9 @@ import com.medilabo.note.dto.SaveNoteDTO;
 
 import java.util.List;
 
+/**
+ * Service interface managing operations related to note.
+ */
 public interface NoteService {
 
     List<NoteDTO> findAll();

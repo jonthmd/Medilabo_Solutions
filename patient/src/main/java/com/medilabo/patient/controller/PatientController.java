@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller with endpoints operations related to the front.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/patient")
@@ -22,6 +25,11 @@ public class PatientController {
         this.patientService = patientService;
     }
 
+    /**
+     * Retrieves all patients.
+     *
+     * @return A list of PatientDTO representing all patients.
+     */
     @GetMapping("/all")
     @Operation(summary = "Get all patients.")
     public List<PatientDTO> getAllPatients() {
@@ -29,6 +37,12 @@ public class PatientController {
         return patientService.findAll();
     }
 
+    /**
+     * Searches patients.
+     *
+     * @param lastName The last name of the patient.
+     * @return A list of PatientDTO representing the result of the search.
+     */
     @GetMapping("/search")
     @Operation(summary = "Search patients.")
     public List<PatientDTO> searchPatients(@RequestParam String lastName) {
@@ -36,6 +50,12 @@ public class PatientController {
         return patientService.findByLastNameIgnoreCase(lastName);
     }
 
+    /**
+     * Creates a patient.
+     *
+     * @param savePatientDTO The information of the patient to create.
+     * @return SavePatientDTO, a saved patient.
+     */
     @PostMapping("/add")
     @Operation(summary = "Add a patient.")
     public SavePatientDTO addPatient(@RequestBody SavePatientDTO savePatientDTO) {
@@ -43,6 +63,12 @@ public class PatientController {
         return patientService.addPatient(savePatientDTO);
     }
 
+    /**
+     * Retrieves a patient via his/her id.
+     *
+     * @param id The id of the specified patient.
+     * @return PatientDTO, a patient.
+     */
     @GetMapping("/{id}")
     @Operation(summary = "Get a patient by ID.")
     public PatientDTO getPatientById(@PathVariable Long id) {
@@ -50,6 +76,13 @@ public class PatientController {
         return patientService.getPatientById(id);
     }
 
+    /**
+     * Updates an existing patient.
+     *
+     * @param id             The id of the specified patient.
+     * @param savePatientDTO The information of the patient to update.
+     * @return SavePatientDTO, a updated patient.
+     */
     @PutMapping("/update/{id}")
     @Operation(summary = "Edit a patient.")
     public SavePatientDTO updatePatient(@PathVariable Long id, @RequestBody SavePatientDTO savePatientDTO) {
@@ -57,6 +90,11 @@ public class PatientController {
         return patientService.updatePatient(id, savePatientDTO);
     }
 
+    /**
+     * Deletes an existing patient.
+     *
+     * @param id The id of the specified patient.
+     */
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Delete a patient.")
     public void deletePatient(@PathVariable Long id) {

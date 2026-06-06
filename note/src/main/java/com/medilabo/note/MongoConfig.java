@@ -14,6 +14,9 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 import java.util.List;
 
+/**
+ * Configures the connection to the MongoDB server.
+ */
 @Configuration
 public class MongoConfig {
 
@@ -23,6 +26,11 @@ public class MongoConfig {
     @Value("${mongodb.port}")
     private int port;
 
+    /**
+     * Creates the MongoDB client.
+     *
+     * @return The MongoDB client.
+     */
     @Bean
     public MongoClient mongoClient() {
         MongoCredential credential = MongoCredential.createCredential(

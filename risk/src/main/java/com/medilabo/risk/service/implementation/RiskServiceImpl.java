@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of the risk service interface.
+ */
 @Slf4j
 @Service
 public class RiskServiceImpl implements RiskService {

@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller with endpoints operations related to the front.
+ */
 @Slf4j
 @Controller
 public class FrontController {
@@ -27,6 +30,12 @@ public class FrontController {
         this.riskFeign = riskFeign;
     }
 
+    /**
+     * Displays the patients list.
+     *
+     * @param model Model used to transmit data.
+     * @return The dashboard with the patients list.
+     */
     @GetMapping("/list")
     public String patientList(Model model) {
         model.addAttribute("patients", patientFeign.getAllPatients());
@@ -34,12 +43,26 @@ public class FrontController {
         return "list";
     }
 
+    /**
+     * Validates the search request.
+     *
+     * @param lastName The specified patient to search by the last name.
+     * @param model    Model used to transmit data.
+     * @return The searched patient on the dashboard.
+     */
     @GetMapping("/search")
     public String searchPatient(@RequestParam String lastName, Model model) {
         model.addAttribute("patients", patientFeign.searchPatients(lastName));
         return "list";
     }
 
+    /**
+     * Displays the patient details.
+     *
+     * @param id    The id of the selected patient.
+     * @param model Model used to transmit data.
+     * @return The patient details with associated notes and risk evaluation.
+     */
     @GetMapping("/patient/{id}")
     public String getPatient(@PathVariable Long id, Model model) {
         model.addAttribute("patient", patientFeign.getPatientById(id));
@@ -52,12 +75,25 @@ public class FrontController {
         return "details";
     }
 
+    /**
+     * Displays the patient registration form.
+     *
+     * @param model Model used to transmit data.
+     * @return The registration form.
+     */
     @GetMapping("/patient/add")
     public String showAddPatientForm(Model model) {
         model.addAttribute("savePatientDTO", new SavePatientDTO());
         return "add";
     }
 
+    /**
+     * Validates the registered patient.
+     *
+     * @param savePatientDTO DTO used to represent a saved patient.
+     * @param result         The data validation, displays error message if any.
+     * @return A redirection to the dashboard.
+     */
     @PostMapping("/patient/add")
     public String addPatient(@Valid @ModelAttribute SavePatientDTO savePatientDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -68,6 +104,13 @@ public class FrontController {
         return "redirect:/list";
     }
 
+    /**
+     * Displays the edit form.
+     *
+     * @param id    The id of the selected patient.
+     * @param model Model used to transmit data.
+     * @return The edit form.
+     */
     @GetMapping("/patient/update/{id}")
     public String showEditPatientForm(@PathVariable Long id, Model model) {
         model.addAttribute("patient", patientFeign.getPatientById(id));
@@ -75,6 +118,15 @@ public class FrontController {
         return "update";
     }
 
+    /**
+     * Validates the edition of the patient.
+     *
+     * @param savePatientDTO DTO used to represent a saved patient.
+     * @param result         The data validation, displays error message if any.
+     * @param id             The id of the selected patient.
+     * @param model          Model used to transmit data.
+     * @return The patient details with associated notes and risk evaluation if successful edition.
+     */
     @PostMapping("/patient/update/{id}")
     public String updatePatient(@Valid @ModelAttribute("patient") SavePatientDTO savePatientDTO, BindingResult result, @PathVariable Long id, Model model) {
         if (result.hasErrors()) {
@@ -93,6 +145,12 @@ public class FrontController {
         return "redirect:/patient/" + id;
     }
 
+    /**
+     * Deletes an existing patient.
+     *
+     * @param id The id of the selected patient.
+     * @return The dashboard with the patients list.
+     */
     @PostMapping("patient/delete/{id}")
     public String deletePatient(@PathVariable Long id) {
         noteFeign.deleteNoteByPatientId(id);
@@ -101,6 +159,12 @@ public class FrontController {
         return "redirect:/list";
     }
 
+    /**
+     * Creates a note on the selected patient details.
+     *
+     * @param saveNoteDTO DTO used to represent a saved note.
+     * @return The patient details with associated notes and risk evaluation.
+     */
     @PostMapping("/note/add")
     public String addNote(@ModelAttribute SaveNoteDTO saveNoteDTO) {
         noteFeign.saveNote(saveNoteDTO);
@@ -108,6 +172,13 @@ public class FrontController {
         return "redirect:/patient/" + saveNoteDTO.getPatientId();
     }
 
+    /**
+     * Deletes an existing note.
+     *
+     * @param id        The id of the selected note.
+     * @param patientId The id of the selected patient.
+     * @return The patient details with associated notes and risk evaluation.
+     */
     @PostMapping("/note/delete/{id}")
     public String deleteNote(@PathVariable String id, @RequestParam String patientId) {
         noteFeign.deleteNote(id);

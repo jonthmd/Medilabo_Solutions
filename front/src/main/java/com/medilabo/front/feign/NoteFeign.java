@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Feign interface for communicating with the Note microservice.
+ */
 @FeignClient(name = "note", url = "${gateway.base-url}")
 public interface NoteFeign {
 

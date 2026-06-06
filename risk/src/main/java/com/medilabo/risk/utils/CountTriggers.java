@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.text.Normalizer;
 import java.util.List;
 
+/**
+ * Util used to count triggers to evaluation the risk of a patient.
+ */
 @Component
 public class CountTriggers {
 

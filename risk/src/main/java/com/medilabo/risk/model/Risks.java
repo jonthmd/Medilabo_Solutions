@@ -2,10 +2,13 @@ package com.medilabo.risk.model;
 
 import lombok.Getter;
 
+/**
+ * Enum used to represent a list of risks.
+ */
 @Getter
 public enum Risks {
     NONE("None"),
-    BORDERLINE("Bordeline"),
+    BORDERLINE("Borderline"),
     DANGER("In Danger"),
     ONSET("Early Onset");
 

@@ -6,6 +6,9 @@ import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enum used to represent a list of triggers.
+ */
 @Getter
 public enum Triggers {
     HEMOGLOBINE("Hémoglobine A1C"),

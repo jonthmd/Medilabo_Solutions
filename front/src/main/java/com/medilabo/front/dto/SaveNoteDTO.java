@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO used to represent a saved note.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

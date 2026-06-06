@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO used to represent patient details.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

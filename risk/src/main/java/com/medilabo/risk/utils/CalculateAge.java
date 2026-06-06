@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 /**
- * Util used to calculate age of persons from their birthdate in String format.
+ * Util used to calculate age of patients from their birthdate in String format.
  */
 @Component
 public class CalculateAge {

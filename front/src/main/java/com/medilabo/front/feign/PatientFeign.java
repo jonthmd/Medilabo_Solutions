@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Feign interface for communicating with the Patient microservice.
+ */
 @FeignClient(name = "patient", url = "${gateway.base-url}")
 public interface PatientFeign {
 

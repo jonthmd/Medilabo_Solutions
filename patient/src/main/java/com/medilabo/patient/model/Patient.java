@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Model representing a patient.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

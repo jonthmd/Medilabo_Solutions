@@ -5,6 +5,9 @@ import com.medilabo.patient.dto.PatientDTO;
 
 import java.util.List;
 
+/**
+ * Service interface managing operations related to patient.
+ */
 public interface PatientService {
 
     List<PatientDTO> findAll();

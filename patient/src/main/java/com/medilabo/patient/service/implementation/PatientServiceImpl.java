@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of the patient service interface.
+ */
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -25,6 +28,11 @@ public class PatientServiceImpl implements PatientService {
         this.savePatientMapper = savePatientMapper;
     }
 
+    /**
+     * Retrieves a list of patients.
+     *
+     * @return A list of PatientDTO.
+     */
     @Override
     public List<PatientDTO> findAll() {
 
@@ -34,8 +42,14 @@ public class PatientServiceImpl implements PatientService {
                 .toList();
     }
 
+    /**
+     * Retrieves a list of patient via his/her lastname.
+     *
+     * @param lastName The last name of the patient.
+     * @return A list of PatientDTO.
+     */
     @Override
-    public List<PatientDTO> findByLastNameIgnoreCase(String lastName){
+    public List<PatientDTO> findByLastNameIgnoreCase(String lastName) {
 
         return patientRepository.findByLastNameContainingIgnoreCase(lastName)
                 .stream()
@@ -43,6 +57,12 @@ public class PatientServiceImpl implements PatientService {
                 .toList();
     }
 
+    /**
+     * Creates a patient.
+     *
+     * @param savePatientDTO Mapped object containing the patient to be created.
+     * @return SavePatientDTO, the created patient.
+     */
     @Override
     public SavePatientDTO addPatient(SavePatientDTO savePatientDTO) {
 
@@ -52,6 +72,12 @@ public class PatientServiceImpl implements PatientService {
         return savePatientMapper.patientToSavePatientDTO(saved);
     }
 
+    /**
+     * Retrieves a patient via his/her id.
+     *
+     * @param id The specified patient id.
+     * @return PatientDTO, the retrieved patient.
+     */
     @Override
     public PatientDTO getPatientById(Long id) {
 
@@ -61,6 +87,13 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.patientToPatientDTO(patient);
     }
 
+    /**
+     * Updates an existing patient.
+     *
+     * @param id             The specified patient id.
+     * @param savePatientDTO Mapped object containing the patient to be updated.
+     * @return SavePatientDTO, the updated patient.
+     */
     @Override
     public SavePatientDTO updatePatient(Long id, SavePatientDTO savePatientDTO) {
 
@@ -70,7 +103,7 @@ public class PatientServiceImpl implements PatientService {
         existingPatient.setFirstName(savePatientDTO.getFirstName());
         existingPatient.setLastName(savePatientDTO.getLastName());
 
-        if(savePatientDTO.getBirthDate() != null) {
+        if (savePatientDTO.getBirthDate() != null) {
             existingPatient.setBirthDate(savePatientDTO.getBirthDate());
         }
 
@@ -82,6 +115,11 @@ public class PatientServiceImpl implements PatientService {
         return savePatientMapper.patientToSavePatientDTO(updatedPatient);
     }
 
+    /**
+     * Deletes an existing patient.
+     *
+     * @param id The specified patient id.
+     */
     @Override
     public void deletePatient(Long id) {
 

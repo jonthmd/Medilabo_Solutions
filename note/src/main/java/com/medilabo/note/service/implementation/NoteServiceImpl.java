@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of the note service interface.
+ */
 @Service
 public class NoteServiceImpl implements NoteService {
 
@@ -25,6 +28,11 @@ public class NoteServiceImpl implements NoteService {
         this.saveNoteMapper = saveNoteMapper;
     }
 
+    /**
+     * Retrieves a list of notes.
+     *
+     * @return A list of NoteDTO.
+     */
     @Override
     public List<NoteDTO> findAll() {
 
@@ -34,6 +42,12 @@ public class NoteServiceImpl implements NoteService {
                 .toList();
     }
 
+    /**
+     * Retrieves a list of notes via a patient id.
+     *
+     * @param patientId The id of the selected patient.
+     * @return A list of noteDTO.
+     */
     @Override
     public List<NoteDTO> findByPatientId(Long patientId) {
 
@@ -43,6 +57,12 @@ public class NoteServiceImpl implements NoteService {
                 .toList();
     }
 
+    /**
+     * Creates a note.
+     *
+     * @param saveNoteDTO Mapped object containing the note to be created.
+     * @return SaveNoteDTO, the created note.
+     */
     @Override
     public SaveNoteDTO createNote(SaveNoteDTO saveNoteDTO) {
 
@@ -52,15 +72,25 @@ public class NoteServiceImpl implements NoteService {
         return saveNoteMapper.saveNoteToSaveNoteDTO(saved);
     }
 
+    /**
+     * Deletes an existing note.
+     *
+     * @param id The specified note id.
+     */
     @Override
     public void deleteNote(String id) {
 
         Note note = noteRepository.findById(id)
-                .orElseThrow(()-> new NoteNotFoundException("Note not found with id: " + id));
+                .orElseThrow(() -> new NoteNotFoundException("Note not found with id: " + id));
 
         noteRepository.delete(note);
     }
 
+    /**
+     * Deletes an existing note via a patient id.
+     *
+     * @param patientId The specified patient id.
+     */
     @Override
     public void deleteNoteByPatientId(Long patientId) {
 
