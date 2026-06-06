@@ -81,7 +81,7 @@ public class PatientController {
      *
      * @param id             The id of the specified patient.
      * @param savePatientDTO The information of the patient to update.
-     * @return SavePatientDTO, a updated patient.
+     * @return SavePatientDTO, an updated patient.
      */
     @PutMapping("/update/{id}")
     @Operation(summary = "Edit a patient.")

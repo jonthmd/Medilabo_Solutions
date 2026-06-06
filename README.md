@@ -45,6 +45,14 @@ Required software :
 
 ### Running the app
 
+--
+
+Use the following account to use the application :
+
+Username/Password : user/user
+
+--
+
 On local :
 
 1 - Run the Medilabo Solutions app via your IDE by running microservices in the following
@@ -97,7 +105,7 @@ In your IDE, right-click the root folder and select “Run all tests” for the 
 
 OR
 
-Enter the command "mvn clean test" on the module you want to test in the terminal .
+Enter the command "mvn clean test" on the module you want to test in the terminal.
 
 
 

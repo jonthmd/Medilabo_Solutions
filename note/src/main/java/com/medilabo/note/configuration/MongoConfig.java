@@ -1,4 +1,4 @@
-package com.medilabo.note;
+package com.medilabo.note.configuration;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
