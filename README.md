@@ -107,6 +107,27 @@ OR
 
 Enter the command "mvn clean test" on the module you want to test in the terminal.
 
+### Green code
+
+#### Architecture
+
+- Implementing a project using microservices architecture : each microservice loads only its logic.
+- Using multi-stage build Docker : image size optimization.
+
+#### Data
+
+- Using DTOs : only the necessary data is transferred to another layer.
+- No unnecessary data is loaded when the app starts : no initDatabase if data is already present.
+- 3NF for MySQL : no duplication data & storage space reduction.
+
+#### Network
+
+- Using Gateway : avoid calling multiple microservices directly.
+
+#### Improvement
+
+- Using pagination.
+- Using Spring Cache.
 
 
 
