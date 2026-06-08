@@ -76,8 +76,8 @@ With Docker :
 
 ### Importing data
 
-The application will generate data when it is first launched (see the application class for the patient
-and note microservices). Otherwise, use file in docs folders, if necessary.
+Using the initDatabase classes, the application will generate data when it is launched for the first time.
+Otherwise, use file in docs folders, if necessary.
 
 ### Microservices
 
