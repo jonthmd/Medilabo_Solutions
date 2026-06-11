@@ -10,7 +10,7 @@ services:
     networks:
       - ms-network
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p!rjooont_12I" ]
       interval: 10s
       timeout: 5s
       retries: 5

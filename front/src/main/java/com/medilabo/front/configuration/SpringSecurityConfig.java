@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/css/**").permitAll(); // ← Bootstrap accessible sans login
+                    auth.requestMatchers("/css/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(form -> form
