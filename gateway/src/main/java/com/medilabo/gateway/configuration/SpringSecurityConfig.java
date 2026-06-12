@@ -32,7 +32,7 @@ public class SpringSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 
@@ -47,8 +47,8 @@ public class SpringSecurityConfig {
     @Bean
     public UserDetailsService users() {
         UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
+                .username("user")
+                .password(passwordEncoder().encode("user"))
                 .roles("ADMIN").build();
         return new InMemoryUserDetailsManager(admin);
     }

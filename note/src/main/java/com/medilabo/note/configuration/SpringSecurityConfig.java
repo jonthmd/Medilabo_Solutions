@@ -33,7 +33,7 @@ public class SpringSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 
@@ -48,8 +48,8 @@ public class SpringSecurityConfig {
     @Bean
     public UserDetailsService users() {
         UserDetails user = User
-                .withUsername("note")
-                .password(passwordEncoder().encode("note123"))
+                .withUsername("user")
+                .password(passwordEncoder().encode("user"))
                 .roles("SERVICE")
                 .build();
 
