@@ -28,7 +28,11 @@ public class GatewayConfig {
     @Value("${risk.base-url}")
     private String riskBase;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    public GatewayConfig(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     private ServerResponse proxy(ServerRequest request, String targetBase) {
         try {

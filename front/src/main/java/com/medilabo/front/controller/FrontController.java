@@ -1,11 +1,10 @@
 package com.medilabo.front.controller;
 
-import com.medilabo.front.dto.DetailsDTO;
 import com.medilabo.front.dto.SaveNoteDTO;
 import com.medilabo.front.dto.SavePatientDTO;
-import com.medilabo.front.feign.NoteFeign;
-import com.medilabo.front.feign.PatientFeign;
-import com.medilabo.front.feign.RiskFeign;
+import com.medilabo.front.service.NoteFrontService;
+import com.medilabo.front.service.PatientFrontService;
+import com.medilabo.front.service.RiskFrontService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,14 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class FrontController {
 
-    private final PatientFeign patientFeign;
-    private final NoteFeign noteFeign;
-    private final RiskFeign riskFeign;
+    private final PatientFrontService patientFrontService;
+    private final NoteFrontService noteFrontService;
+    private final RiskFrontService riskFrontService;
 
-    public FrontController(PatientFeign patientFeign, NoteFeign noteFeign, RiskFeign riskFeign) {
-        this.patientFeign = patientFeign;
-        this.noteFeign = noteFeign;
-        this.riskFeign = riskFeign;
+    public FrontController(PatientFrontService patientFrontService, NoteFrontService noteFrontService, RiskFrontService riskFrontService) {
+        this.patientFrontService = patientFrontService;
+        this.noteFrontService = noteFrontService;
+        this.riskFrontService = riskFrontService;
     }
 
     /**
@@ -38,8 +37,7 @@ public class FrontController {
      */
     @GetMapping("/list")
     public String patientList(Model model) {
-        model.addAttribute("patients", patientFeign.getAllPatients());
-        log.info("patient list");
+        model.addAttribute("patients", patientFrontService.getAllPatients());
         return "list";
     }
 
@@ -52,7 +50,7 @@ public class FrontController {
      */
     @GetMapping("/search")
     public String searchPatient(@RequestParam String lastName, Model model) {
-        model.addAttribute("patients", patientFeign.searchPatients(lastName));
+        model.addAttribute("patients", patientFrontService.searchPatients(lastName));
         return "list";
     }
 
@@ -65,13 +63,11 @@ public class FrontController {
      */
     @GetMapping("/patient/{id}")
     public String getPatient(@PathVariable Long id, Model model) {
-        model.addAttribute("patient", patientFeign.getPatientById(id));
-        model.addAttribute("notes", noteFeign.findNoteByPatientId(id));
+        model.addAttribute("patient", patientFrontService.getPatientById(id));
+        model.addAttribute("notes", noteFrontService.findNoteByPatientId(id));
         model.addAttribute("saveNoteDTO", new SaveNoteDTO());
-        DetailsDTO detailsDTO = new DetailsDTO(patientFeign.getPatientById(id), noteFeign.findNoteByPatientId(id));
-        model.addAttribute("risk", riskFeign.getRisk(detailsDTO));
+        model.addAttribute("risk", riskFrontService.getRisk(id));
         log.info("get patient {}", id);
-        log.info("risk : {}", riskFeign.getRisk(detailsDTO));
         return "details";
     }
 
@@ -99,7 +95,7 @@ public class FrontController {
         if (result.hasErrors()) {
             return "add";
         }
-        patientFeign.addPatient(savePatientDTO);
+        patientFrontService.addPatient(savePatientDTO);
         log.info("add patient {}", savePatientDTO);
         return "redirect:/list";
     }
@@ -113,7 +109,7 @@ public class FrontController {
      */
     @GetMapping("/patient/update/{id}")
     public String showEditPatientForm(@PathVariable Long id, Model model) {
-        model.addAttribute("patient", patientFeign.getPatientById(id));
+        model.addAttribute("patient", patientFrontService.getPatientById(id));
         model.addAttribute("id", id);
         return "update";
     }
@@ -130,9 +126,7 @@ public class FrontController {
     @PostMapping("/patient/update/{id}")
     public String updatePatient(@Valid @ModelAttribute("patient") SavePatientDTO savePatientDTO, BindingResult result, @PathVariable Long id, Model model) {
         if (result.hasErrors()) {
-            result.getAllErrors()
-                    .forEach(error -> log.error(error.toString()));
-            SavePatientDTO existingPatient = patientFeign.updatePatient(id, savePatientDTO);
+            SavePatientDTO existingPatient = patientFrontService.updatePatient(id, savePatientDTO);
 
             if (savePatientDTO.getBirthDate() == null) {
                 savePatientDTO.setBirthDate(existingPatient.getBirthDate());
@@ -140,7 +134,7 @@ public class FrontController {
             model.addAttribute("id", id);
             return "update";
         }
-        patientFeign.updatePatient(id, savePatientDTO);
+        patientFrontService.updatePatient(id, savePatientDTO);
         log.info("update patient {}", savePatientDTO);
         return "redirect:/patient/" + id;
     }
@@ -153,8 +147,8 @@ public class FrontController {
      */
     @PostMapping("patient/delete/{id}")
     public String deletePatient(@PathVariable Long id) {
-        noteFeign.deleteNoteByPatientId(id);
-        patientFeign.deletePatient(id);
+        noteFrontService.deleteNoteByPatientId(id);
+        patientFrontService.deletePatient(id);
         log.info("delete patient {}", id);
         return "redirect:/list";
     }
@@ -167,7 +161,7 @@ public class FrontController {
      */
     @PostMapping("/note/add")
     public String addNote(@ModelAttribute SaveNoteDTO saveNoteDTO) {
-        noteFeign.saveNote(saveNoteDTO);
+        noteFrontService.saveNote(saveNoteDTO);
         log.info("add note {}", saveNoteDTO);
         return "redirect:/patient/" + saveNoteDTO.getPatientId();
     }
@@ -181,7 +175,7 @@ public class FrontController {
      */
     @PostMapping("/note/delete/{id}")
     public String deleteNote(@PathVariable String id, @RequestParam String patientId) {
-        noteFeign.deleteNote(id);
+        noteFrontService.deleteNote(id);
         log.info("delete note {}", id);
         return "redirect:/patient/" + patientId;
     }

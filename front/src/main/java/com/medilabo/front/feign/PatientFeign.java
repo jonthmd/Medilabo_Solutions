@@ -23,7 +23,7 @@ public interface PatientFeign {
     PatientDTO getPatientById(@PathVariable Long id);
 
     @PostMapping("/api/patient/add")
-    PatientDTO addPatient(@RequestBody SavePatientDTO savePatientDTO);
+    SavePatientDTO addPatient(@RequestBody SavePatientDTO savePatientDTO);
 
     @PutMapping("/api/patient/update/{id}")
     SavePatientDTO updatePatient(@PathVariable Long id, @RequestBody SavePatientDTO savePatientDTO) ;

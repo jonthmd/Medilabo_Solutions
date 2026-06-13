@@ -28,30 +28,36 @@ public class RiskServiceImpl implements RiskService {
         this.countTriggers = countTriggers;
     }
 
-
+    /**
+     * Retrieves a risk evaluation.
+     *
+     * @param detailsDTO The patient details.
+     * @return RiskDTO, a risk.
+     */
     @Override
-    public RiskDTO evaluation(DetailsDTO details) {
+    public RiskDTO evaluation(DetailsDTO detailsDTO) {
 
-        PatientDTO patientDTO = details.getPatient();
-        List<NoteDTO> noteDTOList = details.getNote();
+        PatientDTO patientDTO = detailsDTO.getPatient();
+        List<NoteDTO> noteDTOList = detailsDTO.getNote();
 
         int age = calculateAge.calculate(String.valueOf(patientDTO.getBirthDate()));
         int count = countTriggers.count(noteDTOList);
         boolean m = patientDTO.getGender().equalsIgnoreCase("M");
         Risks risks = null;
 
-        if (age >= 30 && count >= 2 && count <= 5) {
+        if (count >= 0 && count <= 1) {
+            risks = Risks.NONE;
+        } else if (age >= 30 && count >= 2 && count <= 5) {
             risks = Risks.BORDERLINE;
-        }
-        if ((age < 30 && m && count == 3) || (age < 30 && !m && count == 4) || (age >= 30 && count >= 6 && count <= 7)) {
+        } else if ((age < 30 && m && count == 3) || (age < 30 && !m && count == 4) || (age >= 30 && count >= 6 && count <= 7)) {
             risks = Risks.DANGER;
-        }
-        if ((age < 30 && m && count >= 5) || (age < 30 && !m && count >= 7) || (age >= 30 && count >= 8)) {
+        } else if ((age < 30 && m && count >= 5) || (age < 30 && !m && count >= 7) || (age >= 30 && count >= 8)) {
             risks = Risks.ONSET;
         }
-        if (count >= 0 && count <= 1){
-            risks = Risks.NONE;
-        }
+
+//        else if ((age < 30 && m && count == 2) || (age < 30 && m && count == 4) || (age < 30 && !m && count == 2) || (age < 30 && !m && count == 3)
+//                || (age < 30 && !m && count == 5) || (age < 30 && !m && count == 6)) {
+//        }
 
         log.info("Age : {}", age);
         log.info("Gender : {}", patientDTO.getGender());
